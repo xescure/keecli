@@ -8,6 +8,7 @@ import * as listTokens from "./commands/list-tokens.js";
 import * as listConversions from "./commands/list-conversions.js";
 import * as swap from "./commands/swap.js";
 import * as faucet from "./commands/faucet.js";
+import * as balance from "./commands/balance.js";
 
 async function main() {
   const cli = yargs(hideBin(process.argv))
@@ -26,7 +27,8 @@ async function main() {
     .command(listTokens)
     .command(listConversions)
     .command(swap)
-    .command(faucet);
+    .command(faucet)
+    .command(balance);
 
   // Add examples
   cli
@@ -46,7 +48,11 @@ async function main() {
       '$0 swap -p "my passphrase" -f "$TOKEN_A" -t "$TOKEN_B" -a "1000"',
       "Swap 1000 TOKEN_A to TOKEN_B",
     )
-    .example('$0 faucet -p "my passphrase"', "Request test tokens from faucet");
+    .example('$0 faucet -p "my passphrase"', "Request test tokens from faucet")
+    .example(
+      '$0 balance -p "my passphrase"',
+      "Show account balances for all tokens",
+    );
 
   // Parse and execute
   await cli.parse();

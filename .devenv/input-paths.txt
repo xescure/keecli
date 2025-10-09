@@ -1,0 +1,7 @@
+/home/xescure/projects/fx-cli/.devenv/flake.json
+/home/xescure/projects/fx-cli/.devenv.flake.nix
+/home/xescure/projects/fx-cli/.env
+/home/xescure/projects/fx-cli/devenv.local.nix
+/home/xescure/projects/fx-cli/devenv.lock
+/home/xescure/projects/fx-cli/devenv.nix
+/home/xescure/projects/fx-cli/devenv.yaml

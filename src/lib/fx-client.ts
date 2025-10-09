@@ -61,10 +61,11 @@ export class FXClient {
    */
   async listConversions(fromToken: string): Promise<any[]> {
     try {
-      const conversions = await this.fxClient.listPossibleConversions({
+      const response = await this.fxClient.listPossibleConversions({
         from: fromToken,
       });
-      return conversions;
+      // Extract the conversions array from the response object
+      return response.conversions || [];
     } catch (error) {
       console.error(`Error getting conversions for ${fromToken}:`, error);
       return [];

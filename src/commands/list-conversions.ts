@@ -8,32 +8,32 @@ interface ListConversionsOptions {
   token: string;
 }
 
-export const command: string = "list-conversions";
+export const command: string = "list-conversions <token>";
 export const desc: string =
   "List all possible conversions from a specific token";
 
 export const builder = (yargs: any) =>
-  yargs.options({
-    passphrase: {
-      type: "string",
-      demandOption: true,
-      describe: "User passphrase for authentication",
-      alias: "p",
-    },
-    resolver: {
-      type: "string",
-      demandOption: false,
-      describe:
-        "Resolver account public key string (uses default if not provided)",
-      alias: "r",
-    },
-    token: {
-      type: "string",
-      demandOption: true,
+  yargs
+    .positional("token", {
       describe: "Source token to find conversions from",
-      alias: "t",
-    },
-  });
+      type: "string",
+      demandOption: true,
+    })
+    .options({
+      passphrase: {
+        type: "string",
+        demandOption: true,
+        describe: "User passphrase for authentication",
+        alias: "p",
+      },
+      resolver: {
+        type: "string",
+        demandOption: false,
+        describe:
+          "Resolver account public key string (uses default if not provided)",
+        alias: "r",
+      },
+    });
 
 export const handler = async (argv: any): Promise<void> => {
   try {
@@ -48,7 +48,7 @@ export const handler = async (argv: any): Promise<void> => {
     // List conversions
     const conversions = await fxClient.listConversions(argv.token);
 
-    if (conversions.length === 0) {
+    if (!Array.isArray(conversions) || conversions.length === 0) {
       console.log(`❌ No conversions found for ${argv.token}`);
       process.exit(0);
     }

@@ -110,7 +110,9 @@ export const handler = async (argv: any): Promise<void> => {
         ? `${ticker} (${tokenAddress})`
         : tokenAddress;
 
-      console.log(`• ${displayToken}: ${formattedBalance}`);
+      console.log(
+        `• ${displayToken}: ${balanceEntry.balance.toString()} (≈ ${formattedBalance})`,
+      );
     }
 
     process.exit(0);

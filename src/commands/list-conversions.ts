@@ -45,6 +45,10 @@ export const handler = async (argv: any): Promise<void> => {
     // Create FX client
     const fxClient = createFXClient(argv.resolver, userClient);
 
+    // Get token registry for ticker lookup
+    const tokens = await fxClient.listTokens();
+    const tokenLookup = new Map(tokens.map((t) => [t.token, t.currency]));
+
     // List conversions
     const conversions = await fxClient.listConversions(argv.token);
 
@@ -53,11 +57,20 @@ export const handler = async (argv: any): Promise<void> => {
       process.exit(0);
     }
 
+    const inputTicker = tokenLookup.get(argv.token);
+    const displayToken = inputTicker
+      ? `${inputTicker} (${argv.token})`
+      : argv.token;
+
     console.log(
-      `\n✅ Found ${conversions.length} possible conversion(s) from ${argv.token}:`,
+      `\n✅ Found ${conversions.length} possible conversion(s) from ${displayToken}:`,
     );
     conversions.forEach((conversion, index) => {
-      console.log(`${index + 1}. ${JSON.stringify(conversion, null, 2)}`);
+      const ticker = tokenLookup.get(conversion);
+      const displayConversion = ticker
+        ? `${ticker} (${conversion})`
+        : conversion;
+      console.log(`${index + 1}. ${displayConversion}`);
     });
     process.exit(0);
   } catch (error) {

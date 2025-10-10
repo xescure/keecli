@@ -1,11 +1,11 @@
 {
-  "name": "fx-cli",
+  "name": "keecli",
   "version": "1.0.0",
-  "description": "FX trading CLI for KeetaNetwork",
+  "description": "KeeCLI - Trading CLI for KeetaNetwork",
   "type": "module",
   "main": "dist/index.js",
   "bin": {
-    "fx-cli": "dist/index.js"
+    "keecli": "dist/index.js"
   },
   "scripts": {
     "build": "tsc",
@@ -16,7 +16,8 @@
     "fx",
     "trading",
     "cli",
-    "keetanetwork"
+    "keetanetwork",
+    "keecli"
   ],
   "author": "",
   "license": "ISC",

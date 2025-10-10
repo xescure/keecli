@@ -1,1 +1,0 @@
-{"inputs":{"nixpkgs":{"url":"github:cachix/devenv-nixpkgs/rolling"},"nixpkgs-nodejs":{"url":"github:nixos/nixpkgs/34a626458d686f1b58139620a8b2793e9e123bba"}}}

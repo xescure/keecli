@@ -30,7 +30,7 @@
     "LICENSE"
   ],
   "author": "xescure",
-  "license": "ISC",
+  "license": "MPL-2.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/xescure/keecli.git"

@@ -1,43 +1,35 @@
 import type { Arguments, CommandBuilder } from "yargs";
-import { createUserClientFromPassphrase } from "../lib/account.js";
+import { createUserClient } from "../lib/account.js";
 import { createFXClient } from "../lib/fx-client.js";
+import {
+  authArguments,
+  validateAuthArgs,
+  getAuthOptions,
+  AuthOptions,
+} from "../lib/command-args.js";
 
 interface TokenMetadata {
   decimalPlaces?: number;
   [key: string]: any;
 }
 
-interface BalanceOptions {
-  passphrase: string;
-  resolver?: string;
-}
+interface BalanceOptions extends AuthOptions {}
 
 export const command: string = "balance";
 export const desc: string = "Show account balances for all tokens";
 
-export const builder = (yargs: any) =>
-  yargs.options({
-    passphrase: {
-      type: "string",
-      demandOption: true,
-      describe: "User passphrase for authentication",
-      alias: "p",
-    },
-    resolver: {
-      type: "string",
-      demandOption: false,
-      describe:
-        "Resolver account public key string (uses default if not provided)",
-      alias: "r",
-    },
-  });
+export const builder = (yargs: any) => yargs.options(authArguments);
 
 export const handler = async (argv: any): Promise<void> => {
   try {
+    // Validate authentication arguments
+    validateAuthArgs(argv);
+
     console.log("Fetching account balances...");
 
-    // Create user client from passphrase
-    const userClient = await createUserClientFromPassphrase(argv.passphrase);
+    // Create user client from provided credentials
+    const authOptions = getAuthOptions(argv);
+    const userClient = await createUserClient(authOptions);
 
     // Create FX client for token registry lookup
     const fxClient = createFXClient(argv.resolver, userClient);

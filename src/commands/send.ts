@@ -1,11 +1,15 @@
 import type { Arguments, CommandBuilder } from "yargs";
-import { createUserClientFromPassphrase } from "../lib/account.js";
+import { createUserClient } from "../lib/account.js";
 import { createFXClient } from "../lib/fx-client.js";
+import {
+  authArguments,
+  validateAuthArgs,
+  getAuthOptions,
+  AuthOptions,
+} from "../lib/command-args.js";
 import * as KeetaNet from "@keetanetwork/keetanet-client";
 
-interface SendOptions {
-  passphrase: string;
-  resolver?: string;
+interface SendOptions extends AuthOptions {
   token: string;
   recipient: string;
   amount: string;
@@ -31,28 +35,18 @@ export const builder = (yargs: any) =>
       type: "string",
       demandOption: true,
     })
-    .options({
-      passphrase: {
-        type: "string",
-        demandOption: true,
-        describe: "User passphrase for authentication",
-        alias: "p",
-      },
-      resolver: {
-        type: "string",
-        demandOption: false,
-        describe:
-          "Resolver account public key string (uses default if not provided)",
-        alias: "r",
-      },
-    });
+    .options(authArguments);
 
 export const handler = async (argv: any): Promise<void> => {
   try {
+    // Validate authentication arguments
+    validateAuthArgs(argv);
+
     console.log(`Sending ${argv.amount} ${argv.token} to ${argv.recipient}...`);
 
-    // Create user client from passphrase
-    const userClient = await createUserClientFromPassphrase(argv.passphrase);
+    // Create user client from provided credentials
+    const authOptions = getAuthOptions(argv);
+    const userClient = await createUserClient(authOptions);
 
     // Create FX client for token registry lookup
     const fxClient = createFXClient(argv.resolver, userClient);

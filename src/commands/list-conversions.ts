@@ -1,10 +1,14 @@
 import type { Arguments, CommandBuilder } from "yargs";
-import { createUserClientFromPassphrase } from "../lib/account.js";
+import { createUserClient } from "../lib/account.js";
 import { createFXClient } from "../lib/fx-client.js";
+import {
+  authArguments,
+  validateAuthArgs,
+  getAuthOptions,
+  AuthOptions,
+} from "../lib/command-args.js";
 
-interface ListConversionsOptions {
-  passphrase: string;
-  resolver?: string;
+interface ListConversionsOptions extends AuthOptions {
   token: string;
 }
 
@@ -19,28 +23,18 @@ export const builder = (yargs: any) =>
       type: "string",
       demandOption: true,
     })
-    .options({
-      passphrase: {
-        type: "string",
-        demandOption: true,
-        describe: "User passphrase for authentication",
-        alias: "p",
-      },
-      resolver: {
-        type: "string",
-        demandOption: false,
-        describe:
-          "Resolver account public key string (uses default if not provided)",
-        alias: "r",
-      },
-    });
+    .options(authArguments);
 
 export const handler = async (argv: any): Promise<void> => {
   try {
+    // Validate authentication arguments
+    validateAuthArgs(argv);
+
     console.log(`Discovering conversions from ${argv.token}...`);
 
-    // Create user client from passphrase
-    const userClient = await createUserClientFromPassphrase(argv.passphrase);
+    // Create user client from provided credentials
+    const authOptions = getAuthOptions(argv);
+    const userClient = await createUserClient(authOptions);
 
     // Create FX client
     const fxClient = createFXClient(argv.resolver, userClient);

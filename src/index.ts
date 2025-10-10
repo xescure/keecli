@@ -38,24 +38,27 @@ async function main() {
   cli
     .example(
       '$0 list-tokens -p "my passphrase"',
-      "List all available tokens (uses default resolver)",
+      "List all available tokens with passphrase (test network)",
     )
     .example(
-      '$0 list-tokens -p "my passphrase" -r "0x06..."',
-      "List all available tokens with custom resolver",
+      '$0 list-tokens -s "my-seed-string" --network main',
+      "List tokens with seed on main network",
     )
     .example(
-      '$0 list-conversions -p "my passphrase" -t "$TOKEN_A"',
-      "List conversions from TOKEN_A",
+      '$0 list-tokens -p "my passphrase" -o 5 -n staging',
+      "List tokens with passphrase, offset 5, staging network",
     )
     .example(
-      '$0 swap -p "my passphrase" -f "$TOKEN_A" -t "$TOKEN_B" -a "1000"',
+      '$0 swap -p "my passphrase" -f "TOKEN_A" -t "TOKEN_B" -a "1000"',
       "Swap 1000 TOKEN_A to TOKEN_B",
     )
-    .example('$0 faucet -p "my passphrase"', "Request test tokens from faucet")
     .example(
-      '$0 balance -p "my passphrase"',
-      "Show account balances for all tokens",
+      '$0 faucet -p "my passphrase"',
+      "Request test tokens from faucet (test network only)",
+    )
+    .example(
+      '$0 balance -s "seed" -o 3 --network main',
+      "Show balances using seed with offset 3 on main network",
     )
     .example(
       '$0 send USDC recipient_address 1000 -p "my passphrase"',

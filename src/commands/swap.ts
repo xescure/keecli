@@ -1,10 +1,14 @@
 import type { Arguments, CommandBuilder } from "yargs";
-import { createUserClientFromPassphrase } from "../lib/account.js";
+import { createUserClient } from "../lib/account.js";
 import { createFXClient } from "../lib/fx-client.js";
+import {
+  authArguments,
+  validateAuthArgs,
+  getAuthOptions,
+  AuthOptions,
+} from "../lib/command-args.js";
 
-interface SwapOptions {
-  passphrase: string;
-  resolver?: string;
+interface SwapOptions extends AuthOptions {
   from: string;
   to: string;
   amount: string;
@@ -16,19 +20,7 @@ export const desc: string = "Execute a token swap";
 
 export const builder = (yargs: any) =>
   yargs.options({
-    passphrase: {
-      type: "string",
-      demandOption: true,
-      describe: "User passphrase for authentication",
-      alias: "p",
-    },
-    resolver: {
-      type: "string",
-      demandOption: false,
-      describe:
-        "Resolver account public key string (uses default if not provided)",
-      alias: "r",
-    },
+    ...authArguments,
     from: {
       type: "string",
       demandOption: true,
@@ -49,15 +41,18 @@ export const builder = (yargs: any) =>
     },
     affinity: {
       type: "string",
-      choices: ["from", "to"] as const,
+      choices: ["from", "to"],
       default: "from",
       describe:
-        "Whether the amount is specified in source (from) or target (to) token units",
+        "Which token the amount refers to ('from' or 'to'). Default is 'from'",
     },
   });
 
 export const handler = async (argv: any): Promise<void> => {
   try {
+    // Validate authentication arguments
+    validateAuthArgs(argv);
+
     console.log(
       `Preparing to swap ${argv.amount} ${argv.affinity === "from" ? argv.from : argv.to}...`,
     );
@@ -65,9 +60,10 @@ export const handler = async (argv: any): Promise<void> => {
     console.log(`   To: ${argv.to}`);
     console.log(`   Amount: ${argv.amount} (${argv.affinity} token units)`);
 
-    // Create user client from passphrase
+    // Create user client from provided credentials
     console.log("\nAuthenticating...");
-    const userClient = await createUserClientFromPassphrase(argv.passphrase);
+    const authOptions = getAuthOptions(argv);
+    const userClient = await createUserClient(authOptions);
     console.log("   User authenticated");
 
     // Create FX client

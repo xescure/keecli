@@ -1,29 +1,29 @@
 import type { Arguments, CommandBuilder } from "yargs";
-import { createUserClientFromPassphrase } from "../lib/account.js";
+import { createUserClient } from "../lib/account.js";
+import {
+  authArguments,
+  validateAuthArgs,
+  getAuthOptions,
+  AuthOptions,
+} from "../lib/command-args.js";
 
-interface ReceiveOptions {
-  passphrase: string;
-}
+interface ReceiveOptions extends AuthOptions {}
 
 export const command: string = "receive";
 export const desc: string = "Show your account address to receive tokens";
 
-export const builder = (yargs: any) =>
-  yargs.options({
-    passphrase: {
-      type: "string",
-      demandOption: true,
-      describe: "User passphrase for authentication",
-      alias: "p",
-    },
-  });
+export const builder = (yargs: any) => yargs.options(authArguments);
 
 export const handler = async (argv: any): Promise<void> => {
   try {
+    // Validate authentication arguments
+    validateAuthArgs(argv);
+
     console.log("Getting your account address...");
 
-    // Create user client from passphrase
-    const userClient = await createUserClientFromPassphrase(argv.passphrase);
+    // Create user client from provided credentials
+    const authOptions = getAuthOptions(argv);
+    const userClient = await createUserClient(authOptions);
 
     // Get the account address
     const accountAddress = userClient.account.publicKeyString.get();

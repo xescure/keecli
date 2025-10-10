@@ -10,17 +10,35 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
-    "dev": "tsc && node dist/index.js"
+    "dev": "tsc && node dist/index.js",
+    "prepublishOnly": "npm run build"
   },
   "keywords": [
     "fx",
     "trading",
     "cli",
     "keetanetwork",
-    "keecli"
+    "keecli",
+    "cryptocurrency",
+    "blockchain",
+    "swap",
+    "defi"
   ],
-  "author": "",
+  "files": [
+    "dist/",
+    "README.md",
+    "LICENSE"
+  ],
+  "author": "xescure",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xescure/keecli.git"
+  },
+  "homepage": "https://github.com/xescure/keecli#readme",
+  "bugs": {
+    "url": "https://github.com/xescure/keecli/issues"
+  },
   "dependencies": {
     "@keetanetwork/anchor": "^0.0.12",
     "@keetanetwork/keetanet-client": "^0.14.8",

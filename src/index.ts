@@ -9,6 +9,8 @@ import * as listConversions from "./commands/list-conversions.js";
 import * as swap from "./commands/swap.js";
 import * as faucet from "./commands/faucet.js";
 import * as balance from "./commands/balance.js";
+import * as send from "./commands/send.js";
+import * as receive from "./commands/receive.js";
 
 async function main() {
   const cli = yargs(hideBin(process.argv))
@@ -28,7 +30,9 @@ async function main() {
     .command(listConversions)
     .command(swap)
     .command(faucet)
-    .command(balance);
+    .command(balance)
+    .command(send)
+    .command(receive);
 
   // Add examples
   cli
@@ -52,6 +56,14 @@ async function main() {
     .example(
       '$0 balance -p "my passphrase"',
       "Show account balances for all tokens",
+    )
+    .example(
+      '$0 send USDC recipient_address 1000 -p "my passphrase"',
+      "Send 1000 USDC tokens to recipient",
+    )
+    .example(
+      '$0 receive -p "my passphrase"',
+      "Show your account address to receive tokens",
     );
 
   // Parse and execute

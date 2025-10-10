@@ -1,6 +1,6 @@
 {
   "name": "keecli",
-  "version": "1.1.2",
+  "version": "1.1.4",
   "description": "KeeCLI - CLI Wallet for Keeta Network",
   "type": "module",
   "main": "dist/index.js",

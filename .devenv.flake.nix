@@ -3,18 +3,18 @@
     let
       version = "1.9.1";
 system = "x86_64-linux";
-devenv_root = "/home/xescure/projects/fx-cli";
-devenv_dotfile = "/home/xescure/projects/fx-cli/.devenv";
+devenv_root = "/home/xescure/projects/keecli";
+devenv_dotfile = "/home/xescure/projects/keecli/.devenv";
 devenv_dotfile_path = ./.devenv;
 devenv_tmpdir = "/run/user/1000";
-devenv_runtime = "/run/user/1000/devenv-2f9d28f";
+devenv_runtime = "/run/user/1000/devenv-bcbeae8";
 devenv_istesting = false;
 devenv_direnvrc_latest_version = 1;
 container_name = null;
 active_profiles = [ ];
 hostname = "thousandsunny";
 username = "xescure";
-git_root = null;
+git_root = "/home/xescure/projects/keecli";
 
         in {
         git-hooks.url = "github:cachix/git-hooks.nix";
@@ -30,18 +30,18 @@ git_root = null;
         let
           version = "1.9.1";
 system = "x86_64-linux";
-devenv_root = "/home/xescure/projects/fx-cli";
-devenv_dotfile = "/home/xescure/projects/fx-cli/.devenv";
+devenv_root = "/home/xescure/projects/keecli";
+devenv_dotfile = "/home/xescure/projects/keecli/.devenv";
 devenv_dotfile_path = ./.devenv;
 devenv_tmpdir = "/run/user/1000";
-devenv_runtime = "/run/user/1000/devenv-2f9d28f";
+devenv_runtime = "/run/user/1000/devenv-bcbeae8";
 devenv_istesting = false;
 devenv_direnvrc_latest_version = 1;
 container_name = null;
 active_profiles = [ ];
 hostname = "thousandsunny";
 username = "xescure";
-git_root = null;
+git_root = "/home/xescure/projects/keecli";
 
             devenv =
             if builtins.pathExists (devenv_dotfile_path + "/devenv.json")

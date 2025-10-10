@@ -1,6 +1,17 @@
 # KeeCLI
 
-A command-line interface for trading on the Keeta Network Network.
+A command-line interface for trading on the Keeta Network.
+
+## ⚠️ **IMPORTANT WARNING - DEVELOPMENT SOFTWARE** ⚠️
+
+**This is early development software and should NOT be used with real funds or on production networks.**
+
+- 🚨 **Use only for development and testing purposes**
+- 🚨 **Never use for valuable tokens on production networks**
+- 🚨 **Software is vibe coded and may contain bugs that could result in loss of funds**
+- 🚨 **No warranty or guarantee of functionality is provided**
+
+By using this software, you acknowledge that you understand these risks and agree to use it only for testing and development purposes.
 
 ## Installation
 

@@ -59,21 +59,21 @@ export const builder = (yargs: any) =>
 export const handler = async (argv: any): Promise<void> => {
   try {
     console.log(
-      `🔄 Preparing to swap ${argv.amount} ${argv.affinity === "from" ? argv.from : argv.to}...`,
+      `Preparing to swap ${argv.amount} ${argv.affinity === "from" ? argv.from : argv.to}...`,
     );
     console.log(`   From: ${argv.from}`);
     console.log(`   To: ${argv.to}`);
     console.log(`   Amount: ${argv.amount} (${argv.affinity} token units)`);
 
     // Create user client from passphrase
-    console.log("\n🔐 Authenticating...");
+    console.log("\nAuthenticating...");
     const userClient = await createUserClientFromPassphrase(argv.passphrase);
-    console.log("   ✅ User authenticated");
+    console.log("   User authenticated");
 
     // Create FX client
-    console.log("🌐 Connecting to FX service...");
+    console.log("Connecting to FX service...");
     const fxClient = createFXClient(argv.resolver, userClient);
-    console.log("   ✅ Connected to FX service");
+    console.log("   Connected to FX service");
 
     // Execute the swap
     const result = await fxClient.executeSwap({
@@ -83,7 +83,7 @@ export const handler = async (argv: any): Promise<void> => {
       affinity: argv.affinity,
     });
 
-    console.log("\n🎉 Swap completed successfully!");
+    console.log("\nSwap completed successfully!");
     console.log(`   Exchange ID: ${result.exchangeID}`);
     console.log(
       `   Final conversion: ${result.estimate.convertedAmount} ${argv.to}`,
@@ -91,7 +91,7 @@ export const handler = async (argv: any): Promise<void> => {
     process.exit(0);
   } catch (error) {
     console.error(
-      "\n❌ Swap failed:",
+      "\nSwap failed:",
       error instanceof Error ? error.message : error,
     );
     process.exit(1);

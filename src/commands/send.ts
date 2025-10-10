@@ -49,9 +49,7 @@ export const builder = (yargs: any) =>
 
 export const handler = async (argv: any): Promise<void> => {
   try {
-    console.log(
-      `📤 Sending ${argv.amount} ${argv.token} to ${argv.recipient}...`,
-    );
+    console.log(`Sending ${argv.amount} ${argv.token} to ${argv.recipient}...`);
 
     // Create user client from passphrase
     const userClient = await createUserClientFromPassphrase(argv.passphrase);
@@ -91,15 +89,15 @@ export const handler = async (argv: any): Promise<void> => {
     );
 
     // Send tokens directly
-    console.log("📡 Sending transaction...");
+    console.log("Sending transaction...");
     await userClient.send(recipientAccount, amount, tokenAddress);
 
-    console.log("✅ Transfer completed successfully!");
+    console.log("Transfer completed successfully!");
 
     process.exit(0);
   } catch (error) {
     console.error(
-      "❌ Error sending tokens:",
+      "Error sending tokens:",
       error instanceof Error ? error.message : error,
     );
     process.exit(1);

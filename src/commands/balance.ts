@@ -34,7 +34,7 @@ export const builder = (yargs: any) =>
 
 export const handler = async (argv: any): Promise<void> => {
   try {
-    console.log("💰 Fetching account balances...");
+    console.log("Fetching account balances...");
 
     // Create user client from passphrase
     const userClient = await createUserClientFromPassphrase(argv.passphrase);
@@ -50,11 +50,11 @@ export const handler = async (argv: any): Promise<void> => {
     const balances = await userClient.allBalances();
 
     if (!balances || balances.length === 0) {
-      console.log("❌ No balances found");
+      console.log("No balances found");
       process.exit(0);
     }
 
-    console.log(`\n✅ Account balances:`);
+    console.log(`\nAccount balances:`);
 
     // Helper function to format balance with decimals
     const formatBalance = async (
@@ -118,7 +118,7 @@ export const handler = async (argv: any): Promise<void> => {
     process.exit(0);
   } catch (error) {
     console.error(
-      "❌ Error fetching balances:",
+      "Error fetching balances:",
       error instanceof Error ? error.message : error,
     );
     process.exit(1);

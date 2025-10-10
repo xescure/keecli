@@ -22,35 +22,34 @@ export const builder = (yargs: any) =>
 
 export const handler = async (argv: any): Promise<void> => {
   try {
-    console.log("💧 Requesting tokens from faucet...");
+    console.log("Requesting tokens from faucet...");
 
     // Create user client from passphrase
-    console.log("🔐 Authenticating...");
+    console.log("Authenticating...");
     const userClient = await createUserClientFromPassphrase(argv.passphrase);
-    console.log("   ✅ User authenticated");
-    console.log(`   📍 Account: ${userClient.account.publicKeyString.get()}`);
+    console.log("   User authenticated");
+    console.log(`   Account: ${userClient.account.publicKeyString.get()}`);
 
     // Request tokens and wait for them to arrive
-    console.log("\n💰 Requesting tokens from faucet...");
+    console.log("\nRequesting tokens from faucet...");
     const result = await FaucetClient.requestAndWaitForTokens(
       userClient,
       userClient.account,
     );
 
     if (result.success) {
-      console.log("\n🎉 Faucet request completed successfully!");
+      console.log("\nFaucet request completed successfully!");
       console.log(`   ${result.message}`);
       if (result.received) {
-        console.log(`   💎 Received: ${result.received} KTA tokens`);
+        console.log(`   Received: ${result.received} KTA tokens`);
       }
-      process.exit(0);
     } else {
-      console.error(`\n❌ Faucet request failed: ${result.message}`);
+      console.error(`\nFaucet request failed: ${result.message}`);
       process.exit(1);
     }
   } catch (error) {
     console.error(
-      "\n❌ Faucet request failed:",
+      "\nFaucet request failed:",
       error instanceof Error ? error.message : error,
     );
     process.exit(1);

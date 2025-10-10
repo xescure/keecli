@@ -29,7 +29,7 @@ export const builder = (yargs: any) =>
 
 export const handler = async (argv: any): Promise<void> => {
   try {
-    console.log("🔍 Discovering available tokens...");
+    console.log("Discovering available tokens...");
 
     // Create user client from passphrase
     const userClient = await createUserClientFromPassphrase(argv.passphrase);
@@ -41,18 +41,18 @@ export const handler = async (argv: any): Promise<void> => {
     const tokens = await fxClient.listTokens();
 
     if (tokens.length === 0) {
-      console.log("❌ No tokens found");
+      console.log("No tokens found");
       process.exit(0);
     }
 
-    console.log(`\n✅ Found ${tokens.length} token(s):`);
+    console.log(`\nFound ${tokens.length} token(s):`);
     tokens.forEach((token, index) => {
       console.log(`${index + 1}. ${token.currency} (${token.token})`);
     });
     process.exit(0);
   } catch (error) {
     console.error(
-      "❌ Error listing tokens:",
+      "Error listing tokens:",
       error instanceof Error ? error.message : error,
     );
     process.exit(1);

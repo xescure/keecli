@@ -37,7 +37,7 @@ export const builder = (yargs: any) =>
 
 export const handler = async (argv: any): Promise<void> => {
   try {
-    console.log(`🔄 Discovering conversions from ${argv.token}...`);
+    console.log(`Discovering conversions from ${argv.token}...`);
 
     // Create user client from passphrase
     const userClient = await createUserClientFromPassphrase(argv.passphrase);
@@ -53,7 +53,7 @@ export const handler = async (argv: any): Promise<void> => {
     const conversions = await fxClient.listConversions(argv.token);
 
     if (!Array.isArray(conversions) || conversions.length === 0) {
-      console.log(`❌ No conversions found for ${argv.token}`);
+      console.log(`No conversions found for ${argv.token}`);
       process.exit(0);
     }
 
@@ -63,7 +63,7 @@ export const handler = async (argv: any): Promise<void> => {
       : argv.token;
 
     console.log(
-      `\n✅ Found ${conversions.length} possible conversion(s) from ${displayToken}:`,
+      `\nFound ${conversions.length} possible conversion(s) from ${displayToken}:`,
     );
     conversions.forEach((conversion, index) => {
       const ticker = tokenLookup.get(conversion);
@@ -75,7 +75,7 @@ export const handler = async (argv: any): Promise<void> => {
     process.exit(0);
   } catch (error) {
     console.error(
-      "❌ Error listing conversions:",
+      "Error listing conversions:",
       error instanceof Error ? error.message : error,
     );
     process.exit(1);

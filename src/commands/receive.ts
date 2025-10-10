@@ -20,7 +20,7 @@ export const builder = (yargs: any) =>
 
 export const handler = async (argv: any): Promise<void> => {
   try {
-    console.log("📥 Getting your account address...");
+    console.log("Getting your account address...");
 
     // Create user client from passphrase
     const userClient = await createUserClientFromPassphrase(argv.passphrase);
@@ -28,14 +28,14 @@ export const handler = async (argv: any): Promise<void> => {
     // Get the account address
     const accountAddress = userClient.account.publicKeyString.get();
 
-    console.log(`\n✅ Your account address:`);
+    console.log(`\nYour account address:`);
     console.log(`${accountAddress}`);
     console.log(`\nShare this address to receive tokens.`);
 
     process.exit(0);
   } catch (error) {
     console.error(
-      "❌ Error getting account address:",
+      "Error getting account address:",
       error instanceof Error ? error.message : error,
     );
     process.exit(1);

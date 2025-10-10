@@ -14,14 +14,14 @@ import * as receive from "./commands/receive.js";
 
 async function main() {
   const cli = yargs(hideBin(process.argv))
-    .scriptName("fx-cli")
+    .scriptName("keecli")
     .usage("$0 <command> [options]")
     .version("1.0.0")
     .help("h")
     .alias("h", "help")
     .demandCommand(1, "You must specify a command")
     .strict()
-    .env("FX_CLI")
+    .env("KEECLI")
     .wrap(Math.min(120, process.stdout.columns || 80));
 
   // Register commands
@@ -72,18 +72,18 @@ async function main() {
 
 // Handle unhandled promise rejections
 process.on("unhandledRejection", (reason, promise) => {
-  console.error("❌ Unhandled Rejection at:", promise, "reason:", reason);
+  console.error("Error: Unhandled Rejection at:", promise, "reason:", reason);
   process.exit(1);
 });
 
 // Handle uncaught exceptions
 process.on("uncaughtException", (error) => {
-  console.error("❌ Uncaught Exception:", error);
+  console.error("Error: Uncaught Exception:", error);
   process.exit(1);
 });
 
 // Run the CLI
 main().catch((error) => {
-  console.error("❌ CLI Error:", error);
+  console.error("Error: CLI Error:", error);
   process.exit(1);
 });

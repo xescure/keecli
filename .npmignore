@@ -1,0 +1,48 @@
+# Source files (only ship compiled JS)
+src/
+*.ts
+!*.d.ts
+
+# Development files
+.devenv/
+.devenv.flake.nix
+.envrc
+devenv.lock
+devenv.nix
+devenv.yaml
+.env
+example.env
+tsconfig.json
+
+# Build artifacts
+node_modules/
+*.tsbuildinfo
+
+# Development scripts
+keecli.sh
+
+# Git and editor files
+.git/
+.gitignore
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Documentation that's not needed
+garbage/
+
+# Test files (if any)
+test/
+tests/
+*.test.js
+*.test.ts
+*.spec.js
+*.spec.ts

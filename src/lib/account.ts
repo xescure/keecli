@@ -40,28 +40,3 @@ export async function createUserClient(
   const account = KeetaNet.lib.Account.fromSeed(seed, offset);
   return KeetaNet.UserClient.fromNetwork(network, account);
 }
-
-/**
- * Create a user client from passphrase and network (legacy function for backward compatibility)
- */
-export async function createUserClientFromPassphrase(
-  passphrase: string,
-  network: NetworkType = "test",
-  offset: number = 0,
-): Promise<KeetaNet.UserClient> {
-  return createUserClient({ passphrase, network, offset });
-}
-
-/**
- * Create an account from a public key string (for resolver accounts)
- */
-export function createAccountFromPublicKey(publicKeyString: string): any {
-  return KeetaNet.lib.Account.fromPublicKeyString(publicKeyString);
-}
-
-/**
- * Get account address as string
- */
-export function getAccountAddress(account: any): string {
-  return account.address;
-}

@@ -40,13 +40,13 @@
     "url": "https://github.com/xescure/keecli/issues"
   },
   "dependencies": {
-    "@keetanetwork/anchor": "^0.0.12",
-    "@keetanetwork/keetanet-client": "^0.14.8",
+    "@keetanetwork/anchor": "^0.0.22",
+    "@keetanetwork/keetanet-client": "^0.14.12",
     "yargs": "^17.7.0"
   },
   "devDependencies": {
     "@types/node": "^24.6.2",
-    "typescript": "^5.0.0",
-    "@types/yargs": "^17.0.0"
+    "@types/yargs": "^17.0.0",
+    "typescript": "^5.0.0"
   }
 }

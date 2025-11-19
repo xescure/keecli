@@ -136,7 +136,7 @@ export class FXClient {
     console.log("2. Requesting firm quote...");
     const quoteWithProvider = await firstEstimate.getQuote();
     const quote = quoteWithProvider.quote;
-    console.log(`   ↳ Quote signed by ${quote.account}`);
+    console.log(`   ↳ Quote signed by ${quote.account.publicKeyString.get()}`);
     console.log(`   ↳ Guaranteed conversion: ${quote.convertedAmount}`);
 
     // Execute swap

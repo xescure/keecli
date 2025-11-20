@@ -7,6 +7,7 @@ export interface AccountOptions {
   seed?: string;
   offset?: number;
   network?: NetworkType;
+  account?: string;
 }
 
 /**
@@ -20,6 +21,7 @@ export async function createUserClient(
     seed: providedSeed,
     offset = 0,
     network = "test" as NetworkType,
+    account: accountPublicKey,
   } = options;
 
   if (!passphrase && !providedSeed) {
@@ -37,6 +39,16 @@ export async function createUserClient(
     seed = providedSeed!;
   }
 
-  const account = KeetaNet.lib.Account.fromSeed(seed, offset);
-  return KeetaNet.UserClient.fromNetwork(network, account);
+  const signingAccount = KeetaNet.lib.Account.fromSeed(seed, offset);
+
+  let account: any;
+  if (accountPublicKey) {
+    account = KeetaNet.lib.Account.fromPublicKeyString(accountPublicKey);
+  } else {
+    account = signingAccount;
+  }
+
+  return KeetaNet.UserClient.fromNetwork(network, signingAccount, {
+    account: account,
+  });
 }

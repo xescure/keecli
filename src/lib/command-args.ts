@@ -7,17 +7,20 @@ export interface AuthOptions {
   offset?: number;
   network?: NetworkType;
   resolver?: string;
+  account?: string;
 }
 
 export const authArguments: Record<string, Options> = {
   passphrase: {
     type: "string",
-    describe: "User passphrase for authentication (mutually exclusive with seed)",
+    describe:
+      "User passphrase for authentication (mutually exclusive with seed)",
     alias: "p",
   },
   seed: {
     type: "string",
-    describe: "User seed for authentication (mutually exclusive with passphrase)",
+    describe:
+      "User seed for authentication (mutually exclusive with passphrase)",
     alias: "s",
   },
   offset: {
@@ -35,8 +38,15 @@ export const authArguments: Record<string, Options> = {
   },
   resolver: {
     type: "string",
-    describe: "Resolver account public key string (uses default if not provided)",
+    describe:
+      "Resolver account public key string (uses default if not provided)",
     alias: "r",
+  },
+  account: {
+    type: "string",
+    describe:
+      "Account public key to sign for (uses signing account if not provided)",
+    alias: "a",
   },
 };
 
@@ -55,6 +65,7 @@ export function getAuthOptions(argv: AuthOptions) {
     passphrase: argv.passphrase,
     seed: argv.seed,
     offset: argv.offset || 0,
-    network: argv.network || "test" as NetworkType,
+    network: argv.network || ("test" as NetworkType),
+    account: argv.account,
   };
 }

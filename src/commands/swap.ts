@@ -37,7 +37,7 @@ export const builder = (yargs: any) =>
       type: "string",
       demandOption: true,
       describe: "Amount to swap (can be in source or target token units)",
-      alias: "a",
+      alias: "A",
     },
     affinity: {
       type: "string",

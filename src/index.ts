@@ -11,6 +11,7 @@ import * as faucet from "./commands/faucet.js";
 import * as balance from "./commands/balance.js";
 import * as send from "./commands/send.js";
 import * as receive from "./commands/receive.js";
+import * as changeLogo from "./commands/change-logo.js";
 
 async function main() {
   const cli = yargs(hideBin(process.argv))
@@ -32,7 +33,8 @@ async function main() {
     .command(faucet)
     .command(balance)
     .command(send)
-    .command(receive);
+    .command(receive)
+    .command(changeLogo);
 
   // Add examples
   cli
@@ -67,6 +69,14 @@ async function main() {
     .example(
       '$0 receive -p "my passphrase"',
       "Show your account address to receive tokens",
+    )
+    .example(
+      '$0 change-logo TOKEN_ADDRESS ./logo.png -p "my passphrase"',
+      "Update token metadata with a logo from a local file",
+    )
+    .example(
+      '$0 change-logo TOKEN_ADDRESS "https://example.com/logo.png" -p "my passphrase"',
+      "Update token metadata with a logo from a URL",
     );
 
   // Parse and execute

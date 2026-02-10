@@ -108,6 +108,18 @@ keecli faucet -s "your-seed" -o 5
 # Note: Faucet will error if you try to use it on other networks
 ```
 
+#### Set Resolver Metadata
+```bash
+# Set resolver metadata from a JSON file for your account
+keecli set-resolver-metadata ./metadata.json -p "your passphrase"
+
+# Set resolver metadata for a specific account
+keecli set-resolver-metadata ./metadata.json -p "your passphrase" -a "B62qn7..."
+
+# With seed on different network
+keecli set-resolver-metadata ./resolver-config.json -s "your-seed" -n main
+```
+
 ### Environment Variables
 
 Set environment variables to avoid repeating common parameters:
@@ -165,4 +177,7 @@ keecli receive -s "my-seed" -o 5
 
 # Request test tokens (only works on test network)
 keecli faucet -p "my passphrase"
+
+# Set resolver metadata from JSON file
+keecli set-resolver-metadata ./metadata.json -p "my passphrase"
 ```

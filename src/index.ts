@@ -12,6 +12,7 @@ import * as balance from "./commands/balance.js";
 import * as send from "./commands/send.js";
 import * as receive from "./commands/receive.js";
 import * as changeLogo from "./commands/change-logo.js";
+import * as setResolverMetadata from "./commands/set-resolver-metadata.js";
 
 async function main() {
   const cli = yargs(hideBin(process.argv))
@@ -34,7 +35,8 @@ async function main() {
     .command(balance)
     .command(send)
     .command(receive)
-    .command(changeLogo);
+    .command(changeLogo)
+    .command(setResolverMetadata);
 
   // Add examples
   cli
@@ -77,6 +79,14 @@ async function main() {
     .example(
       '$0 change-logo TOKEN_ADDRESS "https://example.com/logo.png" -p "my passphrase"',
       "Update token metadata with a logo from a URL",
+    )
+    .example(
+      '$0 set-resolver-metadata ./metadata.json -p "my passphrase"',
+      "Set resolver metadata from a JSON file",
+    )
+    .example(
+      '$0 set-resolver-metadata ./metadata.json -p "my passphrase" -a "B62qn7..."',
+      "Set resolver metadata for a specific account",
     );
 
   // Parse and execute

@@ -50,5 +50,5 @@ tmp/
 temp/
 
 /.devenv
-/.devenv.*
+.devenv*
 /.direnv
